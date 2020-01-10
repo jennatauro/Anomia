@@ -2,6 +2,7 @@ package com.example.anomia;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class AnomiaGame {
 
@@ -13,7 +14,11 @@ public class AnomiaGame {
         mPlayers = new ArrayList<>();
         mPlayers.add(player);
         mDeck = new ArrayList<>();
-        mHash = "1234";
+        mHash = UUID.randomUUID().toString().replace("-", "").substring(0, 4);
+    }
+
+    public String getHash() {
+        return mHash;
     }
 
 }
