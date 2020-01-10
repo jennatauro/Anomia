@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "138953474821",
+    "firebase_url": "https://anomia-c78ff.firebaseio.com",
+    "project_id": "anomia-c78ff",
+    "storage_bucket": "anomia-c78ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:138953474821:android:20082a0de1efa4d5032d6c",
+        "android_client_info": {
+          "package_name": "com.example.anomia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "138953474821-ijravgs6ve86cj2kri2vdpck2knfiiin.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.anomia",
+            "certificate_hash": "25a58b776d2ca7d06f5d2e67ac8bdd3bea6af77f"
+          }
+        },
+        {
+          "client_id": "138953474821-mk4jrali2oq6n41ammu9s5qdd6qfpkor.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2mf26AqeQPW5KNJIOopiafEdJyn0FD9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "138953474821-mk4jrali2oq6n41ammu9s5qdd6qfpkor.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
