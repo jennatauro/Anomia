@@ -26,11 +26,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        // Create a new game in Firebase
+//        // Create a new game in Firebase
         Player player = new Player("Host");
-        mDatabase.getReference("message").setValue("Hello World");
+//        mDatabase.getReference("message").setValue("Hello World");
         AnomiaGame anomiaGame = new AnomiaGame(player);
 
-//        mDatabaseReference.child("1234").setValue(anomiaGame);
+        mDatabase.getReference().child("1234").setValue(anomiaGame);
+
+        // Write a message to the database
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference("message");
+//
+//        myRef.setValue("Hello, World!");
     }
 }
