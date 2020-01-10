@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -30,6 +31,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Player player = new Player("Host");
         AnomiaGame anomiaGame = new AnomiaGame(player);
 
-        mDatabaseReference.child(anomiaGame.getHash()).setValue(anomiaGame);
+        mDatabaseReference.child(anomiaGame.mHash).setValue(anomiaGame);
+
+        TextView gameHashText = findViewById(R.id.game_hash_text_view);
+        gameHashText.setText(anomiaGame.mHash);
+        gameHashText.setVisibility(View.VISIBLE);
     }
 }

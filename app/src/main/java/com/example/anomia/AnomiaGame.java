@@ -17,8 +17,4 @@ public class AnomiaGame {
         mHash = UUID.randomUUID().toString().replace("-", "").substring(0, 4);
     }
 
-    public String getHash() {
-        return mHash;
-    }
-
 }
