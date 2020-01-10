@@ -7,12 +7,9 @@ import java.util.UUID;
 public class AnomiaGame {
 
     public String mHash;
-    public List<Player> mPlayers;
     public List<Card> mDeck;
 
-    AnomiaGame(Player player) {
-        mPlayers = new ArrayList<>();
-        mPlayers.add(player);
+    AnomiaGame() {
         mDeck = new ArrayList<>();
         mHash = UUID.randomUUID().toString().replace("-", "").substring(0, 4);
     }
