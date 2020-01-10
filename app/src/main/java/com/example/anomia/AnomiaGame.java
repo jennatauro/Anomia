@@ -6,6 +6,7 @@ import java.util.UUID;
 
 public class AnomiaGame {
 
+    public boolean isActive = false;
     public String mHash;
     public List<Card> mDeck;
 
