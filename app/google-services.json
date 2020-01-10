@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "896767147507",
+    "firebase_url": "https://maxanomia.firebaseio.com",
+    "project_id": "maxanomia",
+    "storage_bucket": "maxanomia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:896767147507:android:57c67f5386ae01fa08e686",
+        "android_client_info": {
+          "package_name": "com.example.anomia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "896767147507-tsjbspioejd2rgi071rofcap5jenpc0q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWjntCQ1o0njqeIR_w6_RzJTcHVpO2O40"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "896767147507-tsjbspioejd2rgi071rofcap5jenpc0q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
