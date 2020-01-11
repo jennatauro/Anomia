@@ -23,10 +23,11 @@ public class GameActivity extends AppCompatActivity {
 
     private static final String GAME_INFO = "Game_Info";
     private static final String PLAYERS = "Players";
+    private static final String SCORE = "mScore";
     private static final String GAME_IS_ACTIVE = "isActive";
     private static final String CARD_DECK = "Card_Deck";
     private static final String GAME_INDEX = "mGameIndex";
-    private static final int TOTAL_CARD_COUNT = 12;
+    private static final int TOTAL_CARD_COUNT = 2;
 
     private DatabaseReference mCurrentGameReference;
     private int mCurrentGameIndex;
@@ -71,9 +72,29 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (!(boolean) dataSnapshot.getValue()) {
-                    // TODO check winner
-                    Toast toast=Toast. makeText(getApplicationContext(),"GAME OVER",Toast. LENGTH_LONG);
-                    toast.show();
+                    // Show who won
+                    mCurrentGameReference.child(PLAYERS).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            List<HashMap> players = new ArrayList<HashMap>(((HashMap) dataSnapshot.getValue()).values());
+                            int max = Integer.MIN_VALUE;
+                            String name = "";
+                            for (HashMap playerMap : players) {
+                                if (((Long) playerMap.get("mScore")).intValue() > max) {
+                                    max = ((Long) playerMap.get("mScore")).intValue();
+                                    name = (String) playerMap.get("mName");
+                                }
+                            }
+
+                            Toast toast=Toast. makeText(getApplicationContext(),"The winner is " + name + " with " + max + " points.",Toast.LENGTH_LONG);
+                            toast.show();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
 
@@ -125,6 +146,38 @@ public class GameActivity extends AppCompatActivity {
         });
 
         Button wonButton = findViewById(R.id.won_button);
+        wonButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                wonCards+=2;
+                mCurrentGameReference.child(PLAYERS).child(mUserId).child(SCORE).setValue(wonCards);
+
+                activeCards.remove(activeCards.get(activeCards.size() - 1));
+                if (activeCards.isEmpty()) {
+                    symbolText.setText("No card");
+                    cardText.setText("No card");
+                } else {
+                    Card card = activeCards.get(activeCards.size() - 1);
+                    symbolText.setText(card.mCardSymbol.toString());
+                    cardText.setText(card.mText);
+                }
+            }
+        });
+
         Button lostButton = findViewById(R.id.lost_button);
+        lostButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activeCards.remove(activeCards.get(activeCards.size() - 1));
+                if (activeCards.isEmpty()) {
+                    symbolText.setText("No card");
+                    cardText.setText("No card");
+                } else {
+                    Card card = activeCards.get(activeCards.size() - 1);
+                    symbolText.setText(card.mCardSymbol.toString());
+                    cardText.setText(card.mText);
+                }
+            }
+        });
     }
 }

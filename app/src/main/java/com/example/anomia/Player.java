@@ -9,10 +9,12 @@ public class Player {
     public String mName;
     public List<Card> mActiveCards;
     public List<Card> mWonCards;
+    public int mScore;
 
     Player(String uid, String name) {
         mUid = uid;
         mName = name;
+        mScore = 0;
         mActiveCards = new ArrayList<>();
         mWonCards = new ArrayList<>();
     }
