@@ -22,11 +22,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String GAME_INFO = "Game_Info";
     private static final String PLAYERS = "Players";
     private static final String GAME_IS_ACTIVE = "isActive";
+    private static final String CARD_DECK = "Card_Deck";
 
     private DatabaseReference mDatabaseReference;
     private DatabaseReference mCurrentGameReference;
@@ -76,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (mCurrentGameReference != null) {
-                    mCurrentGameReference.child(GAME_IS_ACTIVE).setValue(true);
+                    mCurrentGameReference.child(GAME_INFO).child(GAME_IS_ACTIVE).setValue(true);
                 }
             }
         });
@@ -94,13 +101,28 @@ public class MainActivity extends AppCompatActivity {
                             mDatabaseReference.child(gameHash).child(PLAYERS).child(player.mUid).setValue(player);
 
                             // Listen to when the game becomes active
-                            mCurrentGameReference = mDatabaseReference.child(gameHash).child(GAME_INFO);
-                            mCurrentGameReference.child(GAME_IS_ACTIVE).addValueEventListener(new ValueEventListener() {
+                            mCurrentGameReference = mDatabaseReference.child(gameHash);
+                            mCurrentGameReference.child(GAME_INFO).child(GAME_IS_ACTIVE).addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     // The game is started
-                                    // Create the deck of cards
-                                    System.out.println("ok");
+                                    if ((boolean) dataSnapshot.getValue()) {
+                                        // Create the deck of cards
+                                        List<String> cardStrings  = Arrays.asList(getApplication().getResources().getStringArray(R.array.card_strings));
+                                        List<Card> cards = new ArrayList<>();
+
+                                        for (int i = 0; i < cardStrings.size(); i++) {
+                                            Card card = new Card(cardStrings.get(i), CardSymbol.values()[i % 4]);
+                                            cards.add(card);
+                                        }
+
+                                        Collections.shuffle(cards);
+
+                                        for (int i = 0; i < cards.size(); i++) {
+                                            Card card = cards.get(i);
+                                            mCurrentGameReference.child(CARD_DECK).child(i + "_" + card.mText + "_" + card.mCardSymbol).setValue(card);
+                                        }
+                                    }
                                 }
 
                                 @Override

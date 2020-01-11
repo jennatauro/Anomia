@@ -5,9 +5,9 @@ public class Card {
     public CardSymbol mCardSymbol;
     public String mText;
 
-    Card() {
-        // Set random card symbol
-        // Set random text
+    Card(String text, CardSymbol cardSymbol) {
+        mCardSymbol = cardSymbol;
+        mText = text;
     }
 
 }
