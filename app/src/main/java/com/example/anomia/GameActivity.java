@@ -65,8 +65,8 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
-        TextView symbolText = findViewById(R.id.symbol_text);
-        TextView cardText = findViewById(R.id.card_text);
+        final TextView symbolText = findViewById(R.id.symbol_text);
+        final TextView cardText = findViewById(R.id.card_text);
 
 
         symbolText.setText("No card");
@@ -86,8 +86,11 @@ public class GameActivity extends AppCompatActivity {
                             if (activeCards == null) {
                                 activeCards = new ArrayList<>();
                             }
-                            activeCards.add(new Card((String) cardMap.get("mText"), CardSymbol.valueOf((String) cardMap.get("mCardSymbol"))));
+                            Card card = new Card((String) cardMap.get("mText"), CardSymbol.valueOf((String) cardMap.get("mCardSymbol")));
+                            activeCards.add(card);
                             mCurrentGameReference.child(GAME_INFO).child(GAME_INDEX).setValue(mCurrentGameIndex + 1);
+                            symbolText.setText(card.mCardSymbol.toString());
+                            cardText.setText(card.mText);
                         }
 
                         @Override
