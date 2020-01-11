@@ -126,6 +126,8 @@ public class MainActivity extends AppCompatActivity {
                                     if ((boolean)dataSnapshot.getValue()) {
                                         // Navigate to Game Activity
                                         Intent intent = new Intent(getApplication(), GameActivity.class);
+                                        intent.putExtra("gamehash", gameHash);
+                                        intent.putExtra("userid", mAuth.getCurrentUser().getUid());
                                         startActivity(intent);
                                     }
                                 }
