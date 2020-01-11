@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +26,7 @@ public class GameActivity extends AppCompatActivity {
     private static final String GAME_IS_ACTIVE = "isActive";
     private static final String CARD_DECK = "Card_Deck";
     private static final String GAME_INDEX = "mGameIndex";
+    private static final int TOTAL_CARD_COUNT = 12;
 
     private DatabaseReference mCurrentGameReference;
     private int mCurrentGameIndex;
@@ -65,6 +67,22 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
+        mCurrentGameReference.child(GAME_INFO).child(GAME_IS_ACTIVE).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (!(boolean) dataSnapshot.getValue()) {
+                    // TODO check winner
+                    Toast toast=Toast. makeText(getApplicationContext(),"GAME OVER",Toast. LENGTH_LONG);
+                    toast.show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         final TextView symbolText = findViewById(R.id.symbol_text);
         final TextView cardText = findViewById(R.id.card_text);
 
@@ -78,6 +96,10 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Draw a card
                 if (mIsCurrentUserTurn) {
+                    if (mCurrentGameIndex >= TOTAL_CARD_COUNT) {
+                        // Game is over
+                        mCurrentGameReference.child(GAME_INFO).child(GAME_IS_ACTIVE).setValue(false);
+                    }
                     mCurrentGameReference.child(CARD_DECK).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
